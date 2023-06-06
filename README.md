@@ -15,7 +15,7 @@ This project is built upon the [CustomTkinter](https://github.com/TomSchimansky/
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/nike-bot-desktop.git
+   git clone https://github.com/dev-0x00/NikeDesktopApp
 
 2. Install the required dependencies:
    ```bash
