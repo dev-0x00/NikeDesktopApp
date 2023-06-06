@@ -3,6 +3,8 @@
 This desktop application is designed to automate the process of generation Nike acconts from the Nike website. 
 It utilizes various features and functionalities to enhance the user's ability to successfully generate numerous accounts.
 
+This project is built upon the [CustomTkinter](https://github.com/TomSchimansky/CustomTkinter) framework developed by Tom Schimansky.
+
 ## Features
 
 - **Proxy Support**: Integrate proxy server support for IP rotation and anonymity.
