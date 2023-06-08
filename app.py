@@ -1,7 +1,7 @@
 import tkinter
 import tkinter.messagebox
 import customtkinter
-import csv, json, logging, time
+import csv, json, logging
 from tkinter import filedialog
 from tkinter import ttk
 
@@ -14,6 +14,7 @@ class App(customtkinter.CTk):
         super().__init__()
         self.activated = False
         self.button_state = "disabled"
+        self.user = "EMAIL: xxxxxx xxxx xxx xxxx"
         self.key = "KEY: xxxxxx xxxx xxx xxxxx."
         self.key_status = "STATUS: License not Active."
         self.progress_row = 0
@@ -38,28 +39,34 @@ class App(customtkinter.CTk):
         self.sidebar_frame.grid(row=0, column=0, rowspan=4, sticky="nsew")
         self.sidebar_frame.grid_rowconfigure(5, weight=1)
         
-        self.logo_label = customtkinter.CTkLabel(self.sidebar_frame, text="Account Actions", font=customtkinter.CTkFont(size=20, weight="bold"))
+        self.logo_label = customtkinter.CTkLabel(self.sidebar_frame, \
+            text="Account Actions",font=customtkinter.CTkFont(size=20, weight="bold"))
         self.logo_label.grid(row=0, column=0, padx=20, pady=(20, 10))
         
-        self.sidebar_button_1 = customtkinter.CTkButton(self.sidebar_frame, text="Lisence Key", command=self.license_view)
+        self.sidebar_button_1 = customtkinter.CTkButton(self.sidebar_frame, \
+            text="Lisence Key",command=self.license_view)
         self.sidebar_button_1.grid(row=1, column=0, padx=20, pady=10)   
-        self.sidebar_button_2 = customtkinter.CTkButton(self.sidebar_frame, text="Create Accounts", command=self.create_accounts_view)
+        self.sidebar_button_2 = customtkinter.CTkButton(self.sidebar_frame,\
+             text="Create Accounts", command=self.create_accounts_view)
         self.sidebar_button_2.grid(row=2, column=0, padx=20, pady=10)
-        self.sidebar_button_3 = customtkinter.CTkButton(self.sidebar_frame, text="Settings", command=self.settings_view)
+        self.sidebar_button_3 = customtkinter.CTkButton(self.sidebar_frame, \
+            text="Settings", command=self.settings_view)
         self.sidebar_button_3.grid(row=3, column=0, padx=20, pady=10)
-        self.sidebar_button_4 = customtkinter.CTkButton(self.sidebar_frame, text="Progress", command=self.progress_View)
+        self.sidebar_button_4 = customtkinter.CTkButton(self.sidebar_frame,\
+             text="Progress", command=self.progress_View)
         self.sidebar_button_4.grid(row=4, column=0, padx=20, pady=10)
         
         
-        self.appearance_mode_label = customtkinter.CTkLabel(self.sidebar_frame, text="Appearance Mode:", anchor="w")
+        self.appearance_mode_label = customtkinter.CTkLabel(self.sidebar_frame,\
+             text="Appearance Mode:", anchor="w")
         self.appearance_mode_label.grid(row=6, column=0, padx=20, pady=(10, 0))
-        self.appearance_mode_optionemenu = customtkinter.CTkOptionMenu(self.sidebar_frame, values=["Light", "Dark", "System"],
-                                                                       command=self.change_appearance_mode_event)
+        self.appearance_mode_optionemenu = customtkinter.CTkOptionMenu(self.sidebar_frame,\
+             values=["Light", "Dark", "System"],command=self.change_appearance_mode_event)
         self.appearance_mode_optionemenu.grid(row=7, column=0, padx=20, pady=(10, 10))
         self.scaling_label = customtkinter.CTkLabel(self.sidebar_frame, text="UI Scaling:", anchor="w")
         self.scaling_label.grid(row=8, column=0, padx=20, pady=(10, 0))
-        self.scaling_optionemenu = customtkinter.CTkOptionMenu(self.sidebar_frame, values=["80%", "90%", "100%", "110%", "120%"],
-                                                               command=self.change_scaling_event)
+        self.scaling_optionemenu = customtkinter.CTkOptionMenu(self.sidebar_frame,\
+             values=["80%", "90%", "100%", "110%", "120%"],command=self.change_scaling_event)
         self.scaling_optionemenu.grid(row=9, column=0, padx=20, pady=(10, 20))
 
         self.tabview = customtkinter.CTkTabview(self, width=650, height=1000)
@@ -69,26 +76,73 @@ class App(customtkinter.CTk):
         self.change_appearance_mode_event("Light")
 
         if self.activated:
-            status_label = customtkinter.CTkLabel(self.tabview.tab("License Activation"), text=self.key_status)
+            status_label = customtkinter.CTkLabel(self.tabview.tab("License Activation"),\
+                 text=self.key_status)
             status_label.grid(row=1, column=0, padx=20, pady=(20, 10))
 
-            status_label_1 = customtkinter.CTkLabel(self.tabview.tab("License Activation"), text=self.key)
+            status_label_1 = customtkinter.CTkLabel(self.tabview.tab("License Activation"),\
+                 text=self.key)
             status_label_1.grid(row=0, column=0, padx=20, pady=(20, 10))
 
             # Enable other functionalities here
         
         else:
-            status_label = customtkinter.CTkLabel(self.tabview.tab("License Activation"), text=self.key_status)
+            status_label = customtkinter.CTkLabel(self.tabview.tab("License Activation"),\
+                 text=self.key_status)
             status_label.grid(row=1, column=0, padx=20, pady=(20, 10))
 
-            status_label_1 = customtkinter.CTkLabel(self.tabview.tab("License Activation"), text=self.key)
+            status_label_1 = customtkinter.CTkLabel(self.tabview.tab("License Activation"),\
+                 text=self.key)
             status_label_1.grid(row=0, column=0, padx=20, pady=(20, 10))
         
             self.string_input_button = customtkinter.CTkButton(self.tabview.tab("License Activation"),\
-                text="Activate License",command=self.open_input_dialog_event)
+                text="Activate License",command=self.activate_license)
             self.string_input_button.grid(row=2, column=0, padx=20, pady=(10, 10))
 
+    def activate_license(self):
+         # Create main entry and button
+        self.tabview = customtkinter.CTkTabview(self, width=650, height=1000)
+        self.tabview.grid(row=0, column=1, padx=(20, 0), pady=(10, 0), sticky="w")
+        self.tabview.add("License Activation")
+        self.tabview.tab("License Activation").grid_columnconfigure(1, weight=1)  # configure grid of individual tabs
+
+        self.entry_1 = customtkinter.CTkEntry(self.tabview.tab("License Activation"),\
+             placeholder_text="Email", width=400)
+        self.entry_1.grid(row=1, column=0, columnspan=2, padx=(100, 0), pady=(20, 20), sticky="w")
+
+        self.entry_2 = customtkinter.CTkEntry(self.tabview.tab("License Activation"),\
+             placeholder_text="Product ID", width=400)
+        self.entry_2.grid(row=2, column=0, columnspan=2, padx=(100, 0), pady=(20, 20), sticky="w")
+
+        self.entry_3 = customtkinter.CTkEntry(self.tabview.tab("License Activation"),\
+             placeholder_text="License Key", width=400)
+        self.entry_3.grid(row=3, column=0, columnspan=2, padx=(100, 0), pady=(20, 20), sticky="w")
+
+        self.button_2 = customtkinter.CTkButton(self.tabview.tab("License Activation"),\
+             text="Activate", command=self.activate_license_key)
+        self.button_2.grid(row=4, column=0, padx=(100, 10), pady=(20, 0), sticky="w")
     
+    
+    def activate_license_key(self):
+        email = self.entry_1.get()
+        product_id = self.entry_2.get()
+        license_key = self.entry_3.get()
+        is_active = activate_lic(license_key, email, product_id)
+        
+        if is_active:
+            self.activated = True
+            self.key = f"KEY: {license_key}"
+            self.key_status = "STATUS: License Key Active"
+            self.button_state = "normal"
+            self.license_view()
+        
+        else:
+            self.activated = False
+            self.key = f"KEY: {license_key}"
+            self.key_status = "STATUS: License Key Not Active"
+            self.button_state = "disable"
+            self.license_view()
+
     def license_view(self):
         # Create main entry and button
         self.tabview = customtkinter.CTkTabview(self, width=650, height=1000)
@@ -98,11 +152,14 @@ class App(customtkinter.CTk):
         
 
         if self.activated:
+            status_label = customtkinter.CTkLabel(self.tabview.tab("License Activation"), text=self.user)
+            status_label.grid(row=0, column=0, padx=20, pady=(20, 10))
+
             status_label = customtkinter.CTkLabel(self.tabview.tab("License Activation"), text=self.key_status)
-            status_label.grid(row=1, column=0, padx=20, pady=(20, 10))
+            status_label.grid(row=2, column=0, padx=20, pady=(20, 10))
 
             status_label_1 = customtkinter.CTkLabel(self.tabview.tab("License Activation"), text=self.key)
-            status_label_1.grid(row=0, column=0, padx=20, pady=(20, 10))
+            status_label_1.grid(row=1, column=0, padx=20, pady=(20, 10))
 
             # Enable other functionalities here
         else:
@@ -113,7 +170,7 @@ class App(customtkinter.CTk):
             status_label_1.grid(row=0, column=0, padx=20, pady=(20, 10))
         
             self.string_input_button = customtkinter.CTkButton(self.tabview.tab("License Activation"),\
-                text="Activate License",command=self.open_input_dialog_event)
+                text="Activate License",command=self.activate_license)
             self.string_input_button.grid(row=2, column=0, padx=20, pady=(10, 10))
 
     
@@ -266,19 +323,6 @@ class App(customtkinter.CTk):
         self.entry_2.configure(state="disabled") 
         self.entry_3.configure(state="disabled")
 
-
-    def open_input_dialog_event(self):
-        dialog = customtkinter.CTkInputDialog(text="Enter License Key:", title="Key Activation")
-        key = dialog.get_input()
-        #authenticate the license keys and set the variables apropriatel
-        status = "Active" #make sure you authenticate only users that have active license
-        if key == "ABCD1234EFGH5678" and status == "Active":
-            self.activated = True
-            self.key = f"KEY: {key}"
-            self.key_status = "STATUS: License Key Active"
-            self.button_state = "normal"
-            self.license_view()
-    
     def open_link(event, link):
         import webbrowser
         webbrowser.open(link)

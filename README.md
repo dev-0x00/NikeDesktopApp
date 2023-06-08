@@ -15,7 +15,7 @@ This project is built upon the [CustomTkinter](https://github.com/TomSchimansky/
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/dev-0x00/NikeDesktopApp
+   git clone https://github.com/dev-0x00/NikeDesktopApp.git
 
 2. Install the required dependencies:
    ```bash
